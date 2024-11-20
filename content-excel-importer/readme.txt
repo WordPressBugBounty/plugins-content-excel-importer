@@ -4,8 +4,8 @@ Donate link: https://extend-wp.com/content-excel-importer-for-wordpress/
 Tags: excel import, content import, bulk import, import translations, migrate
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
-Tested up to: 6.5
-Stable tag: 4.3
+Tested up to: 6.7
+Stable tag: 4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,6 +131,9 @@ This feature is available in the [PRO Version](https://extend-wp.com/product/con
 
 == Changelog ==
 
+= 4.4 =
+update phpspreadsheet to 3.4.0 , compatibility with wp 6.7 , woo 9.4..
+
 = 4.2 =
 fix css , check compatibilities
 
@@ -220,3 +223,6 @@ fix notice issue
 
 = 4.2 =
 fix css , check compatibilities
+
+= 4.4 =
+update phpspreadsheet to 3.4.0 , compatibility with wp 6.7 , woo 9.4..

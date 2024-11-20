@@ -85,7 +85,7 @@ class ContentExcelImporterQuery {
 					echo "<p class='proVersion' >" . esc_html__( 'IMAGE', 'content-excel-importer' ) . " <input style='border:1px solid red;background:#ccc;' type='text' style='min-width:200px' name='image' required readonly class='' placeholder='" . esc_html__( 'PRO Version Only', 'content-excel-importer' ) . "'  /></p>";
 
 				} else {
-					print '<p><b>' . esc_html__( $d, 'content-excel-importer' ) . " </b> <input type='text' name='" . esc_attr( $d ) . "'  readonly class='droppable' placeholder='Drop here column' /></p>";
+					print '<p><b>' . esc_html( $d ) . " </b> <input type='text' name='" . esc_attr( $d ) . "'  readonly class='droppable' placeholder='Drop here column' /></p>";
 				}
 			}
 
@@ -108,7 +108,7 @@ class ContentExcelImporterQuery {
 
 					if ( 'post_tag' === $voc->name || 'category' === $voc->name || 'language' === $voc->name || 'post_translations' === $voc->name ) {
 
-						$vocc = esc_html__( strtoupper( str_replace( '_', ' ', $voc->name ) ), 'content-excel-importer' );
+						$vocc = strtoupper( str_replace( '_', ' ', $voc->name ) );
 
 						echo '<p>' . esc_html( $vocc ) . " <input type='text' style='min-width:200px' name='" . esc_attr( $voc->name ) . "' required readonly class='droppable' placeholder='" . esc_html__( 'Drop here column', 'content-excel-importer' ) . "' key /></p>";
 					}
@@ -125,7 +125,7 @@ class ContentExcelImporterQuery {
 
 					if ( 'language' === $voc->name || 'post_translations' === $voc->name ) {
 
-						$vocc = esc_html__( strtoupper( str_replace( '_', ' ', $voc->name ) ), 'content-excel-importer' );
+						$vocc = strtoupper( str_replace( '_', ' ', $voc->name ) );
 
 						echo '<p>' . esc_html( $vocc ) . " <input type='text' style='min-width:200px' name='" . esc_attr( $voc->name ) . "' required readonly class='droppable' placeholder='" . esc_html__( 'Drop here column', 'content-excel-importer' ) . "' key /></p>";
 					}
@@ -138,7 +138,7 @@ class ContentExcelImporterQuery {
 
 				foreach ( $post_meta as $meta ) {
 
-					$metaa = esc_html__( strtoupper( str_replace( '_', ' ', $meta ) ), 'content-excel-importer' );
+					$metaa = strtoupper( str_replace( '_', ' ', $meta ) );
 
 					echo '<p>' . esc_html( $metaa ) . " <input type='text' style='min-width:200px' name='" . esc_attr( $meta ) . "' required readonly class='droppable' placeholder='" . esc_html__( 'Drop here column', 'content-excel-importer' ) . "'  /></p>";
 				}
@@ -153,7 +153,7 @@ class ContentExcelImporterQuery {
 
 					if ( 'product_tag' === $voc->name || 'product_cat' === $voc->name ) {
 
-						$vocc = esc_html__( strtoupper( str_replace( '_', ' ', $voc->name ) ), 'content-excel-importer' );
+						$vocc = strtoupper( str_replace( '_', ' ', $voc->name ) );
 
 						echo '<p>' . esc_html( $vocc ) . " <input type='text' style='min-width:200px' name='" . esc_attr( $voc->name ) . "' required readonly class='droppable' placeholder='" . esc_html__( 'Drop here column', 'content-excel-importer' ) . "' key /></p>";
 					}

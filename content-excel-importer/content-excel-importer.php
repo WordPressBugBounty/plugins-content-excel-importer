@@ -3,16 +3,16 @@
  * Plugin Name: Import Content in WordPress & WooCommerce with Excel
  * Plugin URI: https://extend-wp.com/content-excel-importer-for-wordpress/
  * Description: Import Posts, Pages, Simple Products for WooCommerce & WordPress with Excel. Migrate Easily. No more CSV Hassle
- * Version: 4.3
+ * Version: 4.4
  * Author: extendWP
  * Author URI: https://extend-wp.com
  *
  * WC requires at least: 2.2
- * WC tested up to: 8.7
+ * WC tested up to: 9.5
  *
  * License: GPL2s
  * Created On: 04-06-2018
- * Updated On: 03-04-2024
+ * Updated On: 20-11-2024
  * Text Domain: content-excel-importer
  * Domain Path: /languages
  */
@@ -225,7 +225,7 @@ add_filter(
 
 		$plugins[] = (object) array(
 			'slug'    => 'content-excel-importer',
-			'version' => '4.3',
+			'version' => '4.4',
 		);
 
 		return $plugins;

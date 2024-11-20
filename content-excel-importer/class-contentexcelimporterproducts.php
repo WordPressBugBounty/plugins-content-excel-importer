@@ -1,7 +1,12 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 /** this file contains the class that handles import of content **/
 
-require plugin_dir_path( __FILE__ ) . '/Classes/autoload.php';
+if ( ! class_exists( 'PhpOffice\PhpSpreadsheet\IOFactory' ) ) {
+	include plugin_dir_path( __FILE__ ) . '/Classes/autoload.php';
+}
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -116,7 +121,7 @@ public function importProducts() {
 						print "<h2 style='color:#0073aa;'>" . esc_html__( 'FIELDS', 'content-excel-importer' ) . '</h2>';
 					?>
 											
-						<?php print $this->getFields( $post_type ); ?>
+						<?php $this->getFields( $post_type ); ?>
 								
 						<?php
 						print "<input type='hidden' name='finalupload' value='" . esc_attr( $total ) . "' />
@@ -219,7 +224,7 @@ public function importProducts() {
 
 					// Create.
 					$id = wp_insert_post( $post, $wp_error );
-					print "<p class='success'><a href='" . esc_url( get_permalink( $id ) ) . "' target='_blank'>" . $title . '</a> ' . esc_html__( 'created', 'cexcelimporter' ) . '.</p>';
+					print "<p class='success'><a href='" . esc_url( get_permalink( $id ) ) . "' target='_blank'>" . esc_html( $title ) . '</a> ' . esc_html__( 'created', 'content-excel-importer' ) . '.</p>';
 					wp_set_object_terms( $id, 'simple', 'product_type' );
 
 					if ( in_array( $id, $idsArray ) ) {

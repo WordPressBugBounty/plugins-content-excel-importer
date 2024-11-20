@@ -35,19 +35,19 @@ add_action(
 			'codecabin-deactivate-feedback-form',
 			'codecabin_deactivate_feedback_form_strings',
 			array(
-				'quick_feedback'        => __( 'We are sorry to see you go...', 'codecabin' ),
-				'foreword'              => __( 'If you would be kind enough, please tell us why you\'re deactivating?', 'codecabin' ),
-				'better_plugins_name'   => __( 'Please tell us which plugin?', 'codecabin' ),
-				'please_tell_us'        => __( 'Please tell us the reason so we can improve the plugin', 'codecabin' ),
-				'do_not_attach_email'   => __( 'Do not send my e-mail address with this feedback', 'codecabin' ),
+				'quick_feedback'        => __( 'We are sorry to see you go...', 'content-excel-importer' ),
+				'foreword'              => __( 'If you would be kind enough, please tell us why you\'re deactivating?', 'content-excel-importer' ),
+				'better_plugins_name'   => __( 'Please tell us which plugin?', 'content-excel-importer' ),
+				'please_tell_us'        => __( 'Please tell us the reason so we can improve the plugin', 'content-excel-importer' ),
+				'do_not_attach_email'   => __( 'Do not send my e-mail address with this feedback', 'content-excel-importer' ),
 
-				'brief_description'     => __( 'Please give us any feedback that could help us improve', 'codecabin' ),
+				'brief_description'     => __( 'Please give us any feedback that could help us improve', 'content-excel-importer' ),
 
-				'cancel'                => __( 'Cancel', 'codecabin' ),
-				'skip_and_deactivate'   => __( 'Skip &amp; Deactivate', 'codecabin' ),
-				'submit_and_deactivate' => __( 'Submit &amp; Deactivate', 'codecabin' ),
-				'please_wait'           => __( 'Please wait', 'codecabin' ),
-				'thank_you'             => __( 'Thank you!', 'codecabin' ),
+				'cancel'                => __( 'Cancel', 'content-excel-importer' ),
+				'skip_and_deactivate'   => __( 'Skip &amp; Deactivate', 'content-excel-importer' ),
+				'submit_and_deactivate' => __( 'Submit &amp; Deactivate', 'content-excel-importer' ),
+				'please_wait'           => __( 'Please wait', 'content-excel-importer' ),
+				'thank_you'             => __( 'Thank you!', 'content-excel-importer' ),
 			)
 		);
 
@@ -56,12 +56,12 @@ add_action(
 
 		// Reasons.
 		$defaultReasons = array(
-			'suddenly-stopped-working' => __( 'The plugin suddenly stopped working', 'codecabin' ),
-			'plugin-broke-site'        => __( 'The plugin broke my site', 'codecabin' ),
-			'no-longer-needed'         => __( 'I don\'t need this plugin any more', 'codecabin' ),
-			'found-better-plugin'      => __( 'I found a better plugin', 'codecabin' ),
-			'temporary-deactivation'   => __( 'It\'s a temporary deactivation, I\'m troubleshooting', 'codecabin' ),
-			'other'                    => __( 'Other', 'codecabin' ),
+			'suddenly-stopped-working' => __( 'The plugin suddenly stopped working', 'content-excel-importer' ),
+			'plugin-broke-site'        => __( 'The plugin broke my site', 'content-excel-importer' ),
+			'no-longer-needed'         => __( 'I don\'t need this plugin any more', 'content-excel-importer' ),
+			'found-better-plugin'      => __( 'I found a better plugin', 'content-excel-importer' ),
+			'temporary-deactivation'   => __( 'It\'s a temporary deactivation, I\'m troubleshooting', 'content-excel-importer' ),
+			'other'                    => __( 'Other', 'content-excel-importer' ),
 		);
 
 		foreach ( $plugins as $plugin ) {
