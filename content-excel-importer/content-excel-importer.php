@@ -2,50 +2,69 @@
 /*
  * Plugin Name: Import Content in WordPress & WooCommerce with Excel
  * Plugin URI: https://extend-wp.com/content-excel-importer-for-wordpress/
- * Description: Import Posts, Pages, Simple Products for WooCommerce & WordPress with Excel. Migrate Easily. No more CSV Hassle
- * Version: 4.4
- * Author: extendWP
- * Author URI: https://extend-wp.com
- *
+ * Description: Import Posts, Pages, Simple Products for WooCommerce & WordPress with Excel. Migrate Easily. No more CSV Hassle.
+ * Version: 5.0.0
+ * Author: WPFactory
+ * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
- * WC tested up to: 9.5
- *
- * License: GPL2s
+ * WC tested up to: 9.8
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Created On: 04-06-2018
- * Updated On: 20-11-2024
+ * Updated On: 19-05-2025
  * Text Domain: content-excel-importer
- * Domain Path: /languages
+ * Domain Path: /langs
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+defined( 'WPFACTORY_CEXL_VERSION' ) || define( 'WPFACTORY_CEXL_VERSION', '5.0.0' );
+
+defined( 'WPFACTORY_CEXL_FILE' ) || define( 'WPFACTORY_CEXL_FILE', __FILE__ );
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpfactory-cexl.php';
+
+if ( ! function_exists( 'wpfactory_cexl' ) ) {
+	/**
+	 * Returns the main instance of WPFactory_CEXL to prevent the need to use globals.
+	 *
+	 * @version 5.0.0
+	 * @since   5.0.0
+	 */
+	function wpfactory_cexl() {
+		return WPFactory_CEXL::instance();
+	}
 }
 
+add_action( 'plugins_loaded', 'wpfactory_cexl' );
+
+/**
+ * require.
+ */
 require plugin_dir_path( __FILE__ ) . '/class-contentexcelimporterquery.php';
 require plugin_dir_path( __FILE__ ) . '/class-contentexcelimporterproducts.php';
 
-function contentExceIimporter_translate() {
-	/** This function is responsible for translations. */
-
-	load_plugin_textdomain( 'content-excel-importer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
-add_action( 'plugins_loaded', 'contentExceIimporter_translate' );
-
+/**
+ * load_contentExceIimporter_js.
+ *
+ * This function enqueues css and js files needed.
+ *
+ * @version 5.0.0
+ */
 function load_contentExceIimporter_js() {
-	/** This function enqueues css and js files needed. */
 
 	$screen = get_current_screen();
 
-	if ( 'toplevel_page_content-excel-importer' !== $screen->base ) {
+	if ( 'wpfactory_page_content-excel-importer' !== $screen->base ) {
 		return;
 	}
 
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'jquery-ui-accordion' );
-		wp_enqueue_script( 'jquery-ui-tabs' );
-		wp_enqueue_script( 'jquery-ui-draggable' );
-		wp_enqueue_script( 'jquery-ui-droppable' );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui-core' );
+	wp_enqueue_script( 'jquery-ui-accordion' );
+	wp_enqueue_script( 'jquery-ui-tabs' );
+	wp_enqueue_script( 'jquery-ui-draggable' );
+	wp_enqueue_script( 'jquery-ui-droppable' );
 
 	// ENQUEUED CSS FILE INSTEAD OF INLINE CSS.
 	wp_enqueue_style( 'contentExceIimporter_css', plugins_url( '/css/contentExceIimporter.css', __FILE__ ) );
@@ -66,36 +85,16 @@ function load_contentExceIimporter_js() {
 }
 add_action( 'admin_enqueue_scripts', 'load_contentExceIimporter_js' );
 
-
-// ADD MENU LINK AND PAGE FOR WOOCOMMERCE IMPORTER.
-add_action( 'admin_menu', 'contentExceIimporter_menu' );
-
-function contentExceIimporter_menu() {
-	/** This function adds menu page. */
-
-	add_menu_page( 'Content Excel Importer Settings', esc_html__( 'Content Excel Importer', 'content-excel-importer' ), 'manage_options', 'content-excel-importer', 'contentExceIimporter_init', 'dashicons-upload', '50' );
-}
-
-
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'add_contentExceIimporter_links' );
-
-function add_contentExceIimporter_links( $links ) {
-	/** This function adds links to plugins page for this plugin. */
-
-	$links[] = '<a href="' . esc_url( admin_url( 'admin.php?page=content-excel-importer' ) ) . '">' . esc_html__( 'Settings', 'content-excel-importer' ) . '</a>';
-	$links[] = '<a href="https://extend-wp.com/product/content-importer-wordpress-woocommerce-excel/" target="_blank">' . esc_html__( 'PRO Version', 'content-excel-importer' ) . '</a>';
-	$links[] = '<a href="https://extend-wp.com" target="_blank">' . esc_html__( 'More plugins', 'content-excel-importer' ) . '</a>';
-	return $links;
-}
-
+/**
+ * contentExceIimporter_main.
+ *
+ * This function is main wrapper for plugin display page.
+ */
 function contentExceIimporter_main() {
-	/** This function is main wrapper for plugin display page. */
-
 	?>
 
-		
-		<div class = 'left_wrap' >	
-		
+		<div class = 'left_wrap' >
+
 			<div class = 'premium_msg'>
 				<p>
 					<strong>
@@ -110,7 +109,7 @@ function contentExceIimporter_main() {
 			?>
 			</div>
 		</div>
-		
+
 		<div class='right_wrap rightToLeft'>
 			<h2  class='center'><?php esc_html_e( 'NEED MORE FEATURES?', 'content-excel-importer' ); ?> </h2>
 				<ul>
@@ -122,31 +121,34 @@ function contentExceIimporter_main() {
 					<li> - <?php esc_html_e( 'Import Featured Image along with Post', 'content-excel-importer' ); ?></li>
 					<li> - <?php esc_html_e( 'Import Variable Woocommerce Products', 'content-excel-importer' ); ?></li>
 					<li> - <?php esc_html_e( 'Import Product Featured Image from URL', 'content-excel-importer' ); ?></li>
-					<li> - <?php esc_html_e( 'Import Product Gallery Images from URL!', 'content-excel-importer' ); ?></li>				
+					<li> - <?php esc_html_e( 'Import Product Gallery Images from URL!', 'content-excel-importer' ); ?></li>
 					<li> - <?php esc_html_e( 'Import YOAST SEO Meta Title & Description', 'content-excel-importer' ); ?></li>
 					<li> - <?php esc_html_e( 'Define Downloadable, name, URL for file, expiry date & limit!', 'content-excel-importer' ); ?></li>
 					<li> - <?php esc_html_e( 'Import Category Term Description with HTML Support', 'content-excel-importer' ); ?></li>
-				</ul>	
-			<p class='center'>			
+				</ul>
+			<p class='center'>
 				<a target='_blank'  href="<?php echo esc_url( 'https://extend-wp.com/product/content-importer-wordpress-woocommerce-excel' ); ?>">
 					<img class='premium_img' src='<?php echo esc_url( plugins_url( 'images/content-excel-importer-pro.png', __FILE__ ) ); ?>' alt='<?php esc_html_e( 'Content Excel Importer PRO', 'content-excel-importer' ); ?>' title='<?php esc_html_e( 'Content Excel Importer PRO', 'content-excel-importer' ); ?>' />
 				</a>
 			<p  class='center'>'
 				<a class='premium_button' target='_blank'  href='<?php echo esc_url( 'https://extend-wp.com/product/content-importer-wordpress-woocommerce-excel' ); ?> '>
-					<?php esc_html_e( 'Get it here', 'content-excel-importer' ); ?>	
+					<?php esc_html_e( 'Get it here', 'content-excel-importer' ); ?>
 				</a>
 			</p>
 		</div>
 	<?php
 }
 
-
+/**
+ * contentExceIimporter_init.
+ *
+ * This function contains plugin content.
+ */
 function contentExceIimporter_init() {
-	/** This function contains plugin content. */
-
 	contentExceIimporter_form_header();
+
 	?>
-	<div class = "content-excel-importer" >	
+	<div class = "content-excel-importer" >
 <div class='msg'></div>
 
 	<h2 class = "nav-tab-wrapper" >
@@ -154,44 +156,53 @@ function contentExceIimporter_init() {
 		<a class = 'nav-tab premium' href='#'><?php esc_html_e( 'Delete Content', 'content-excel-importer' ); ?></a>
 		<a class = 'nav-tab premium' href='#'><?php esc_html_e( 'Import Categories', 'content-excel-importer' ); ?></a>
 		<a class = 'nav-tab premium' href='#'><?php esc_html_e( 'Delete Categories', 'content-excel-importer' ); ?></a>
-	</h2>	
-	
+	</h2>
+
 	<?php
 		contentExceIimporter_main();
 	?>
-		
+
 	</div>
-	
-	
+
 	<?php
 	contentExceIimporter_form_footer();
 }
 
+/**
+ * contentExceIimporter_form_header.
+ *
+ * This function is plugin header.
+ */
 function contentExceIimporter_form_header() {
-	/** This function is plugin header. */
-
 	?>
 	<h1 style='display:flex;align-items:center;' ><a target='_blank' href='<?php echo esc_url( 'https://extend-wp.com/wordpress-premium-plugins' ); ?> '>
-			
+
 	<img   style='width:170px;padding-right:30px' src='<?php echo esc_url( plugins_url( 'images/extendwp.png', __FILE__ ) ); ?>' alt='<?php esc_html_e( 'Get more plugins by extendWP', 'content-excel-importer' ); ?> title='<?php esc_html_e( 'Get more plugins by extendWP', 'content-excel-importer' ); ?> />
 		</a> <span style='color:#2271b1;'><?php esc_html_e( 'Import Content in WordPress & WooCommerce with Excel', 'content-excel-importer' ); ?></span></h1>
-			
+
 	<?php
 }
 
+/**
+ * contentExceIimporter_form_footer.
+ *
+ * This function is plugin footer.
+ */
 function contentExceIimporter_form_footer() {
-	/** This function is plugin footer. */
-
 	?>
 	<hr>
 		<div></div>
-		<?php contentExceIimporter_rating(); ?>				
+		<?php contentExceIimporter_rating(); ?>
 
 	<?php
 }
 
+/**
+ * contentExceIimporter_rating.
+ *
+ * This function is plugin rating from wordpress.org.
+ */
 function contentExceIimporter_rating() {
-	/** This function is plugin rating from wordpress.org. */
 	?>
 		<div class="notices notice-success rating is-dismissible">
 
@@ -200,24 +211,13 @@ function contentExceIimporter_rating() {
 					<i class='fa fa-star' style='color:gold' ></i><i class='fa fa-star' style = 'color:gold' ></i><i class = 'fa fa-star' style = 'color:gold' ></i><i class='fa fa-star' style='color:gold' ></i><i class = 'fa fa-star' style = 'color:gold' ></i>
 				</a>
 
-		</div> 	
+		</div>
 	<?php
 }
 
-// HPOS compatibility declaration.
-
-add_action(
-	'before_woocommerce_init',
-	function () {
-		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-		}
-	}
-);
-
-
-// Deactivation survey.
-
+/**
+ * Deactivation survey.
+ */
 require plugin_dir_path( __FILE__ ) . '/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php';
 add_filter(
 	'codecabin_deactivate_feedback_form_plugins',
@@ -232,22 +232,33 @@ add_filter(
 	}
 );
 
-// Email notification form.
-
+/**
+ * Email notification form.
+ */
 register_activation_hook( __FILE__, 'contentExceIimporter_notification_hook' );
 
+/**
+ * contentExceIimporter_notification_hook.
+ *
+ * This function sets a transient for displaying the notification message.
+ */
 function contentExceIimporter_notification_hook() {
-	/** This function sets a transient for displaying the notification message. */
 	set_transient( 'contentExceIimporter_notification', true );
 }
 
 add_action( 'admin_notices', 'contentExceIimporter_notification' );
 
+/**
+ * contentExceIimporter_notification.
+ *
+ * This function shows notification message.
+ *
+ * @version 5.0.0
+ */
 function contentExceIimporter_notification() {
-	/** This function shows notification message. */
 
 	$screen = get_current_screen();
-	if ( 'toplevel_page_content-excel-importer' !== $screen->base ) {
+	if ( 'wpfactory_page_content-excel-importer' !== $screen->base ) {
 		return;
 	}
 
@@ -269,12 +280,13 @@ function contentExceIimporter_notification() {
 	}
 }
 add_action( 'wp_ajax_nopriv_contentExceIimporter_push_not', 'contentExceIimporter_push_not' );
-add_action( 'wp_ajax_contentExceIimporter_push_not', 'contentExceIimporter_push_not' );
+add_action( 'wp_ajax_contentExceIimporter_push_not',        'contentExceIimporter_push_not' );
 
+/**
+ * contentExceIimporter_push_not.
+ *
+ * This function deletes transient if user closes popup window.
+ */
 function contentExceIimporter_push_not() {
-	/** This function deletes transient if user closes popup window. */
-
 	delete_transient( 'contentExceIimporter_notification' );
 }
-
-?>
